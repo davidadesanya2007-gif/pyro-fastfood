@@ -301,25 +301,29 @@
       const name = document.getElementById("customerName").value;
       const phone = document.getElementById("customerPhone").value;
       const email = document.getElementById("customerEmail").value;
-      const persons = document.getElementById("numberOfPersons").value;
+      const persons = document.getElementById("persons").value;
       const date = document.getElementById("bookingDate").value;
       const time = document.getElementById("bookingTime").value;
 
       const message =
-        "Hello Pyro FastFood, I want to book a table.%0A%0A" +
-        "Name: " + name + "%0A" +
-        "Phone Number: " + phone + "%0A" +
-        "Email: " + email + "%0A" +
-        "Number of Persons: " + persons + "%0A" +
-        "Booking Date: " + date + "%0A" +
-        `Booking Time: ${time}`;
+        `Hello Pyro FastFood, I want to book a table.
+
+      Name: ${name}
+      Phone Number: ${phone}
+      Email: ${email}
+      Number of Persons: ${persons}
+      Booking Date: ${date}
+      Booking Time: ${time}`;
 
       const whatsappNumber = "2348103412803";
 
-      window.open(
-        "https://wa.me/" + whatsappNumber + "?text=" + message,
-        "_blank"
-      );
+      const whatsappUrl =
+        "https://wa.me/" +
+        whatsappNumber +
+        "?text=" +
+        encodeURIComponent(message);
+
+      window.open(whatsappUrl, "_blank");
     });
   </script>
 
