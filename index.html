@@ -21,7 +21,7 @@
   <!--owl slider stylesheet -->
   <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/OwlCarousel2/2.3.4/assets/owl.carousel.min.css" />
   <!-- nice select  -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/css/nice-select.min.css" integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
+   integrity="sha512-CruCP+TD3yXzlvvijET8wV5WxxEh5H8P4cmz0RFbKK6FlZ2sYl3AEsKlLPHbniXKSrDdFewhbmBK5skbdsASbQ==" crossorigin="anonymous" />
   <!-- font awesome style -->
   <link href="css/font-awesome.min.css" rel="stylesheet" />
 
@@ -714,7 +714,7 @@
               </div>
 
               <div>
-                <select id="persons" class="form-control nice-select wide" required>
+                <select id="persons" class="form-control" required>
                   <option value="" disabled selected>
                     How many persons?
                   </option>
@@ -895,8 +895,6 @@
   </script>
   <!-- isotope js -->
   <script src="https://unpkg.com/isotope-layout@3.0.4/dist/isotope.pkgd.min.js"></script>
-  <!-- nice select -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-nice-select/1.1.0/js/jquery.nice-select.min.js"></script>
   <!-- custom js -->
   <script src="js/custom.js"></script>
   <!-- Google Map -->
@@ -908,28 +906,34 @@
     document.getElementById("bookingForm").addEventListener("submit", function (event) {
       event.preventDefault();
 
-      const name = document.getElementById("customerName").value;
-      const phone = document.getElementById("customerPhone").value;
-      const email = document.getElementById("customerEmail").value;
+      const form = event.currentTarget;
+
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
+      const name = document.getElementById("customerName").value.trim();
+      const phone = document.getElementById("customerPhone").value.trim();
+      const email = document.getElementById("customerEmail").value.trim();
       const persons = document.getElementById("persons").value;
       const date = document.getElementById("bookingDate").value;
       const time = document.getElementById("bookingTime").value;
 
       const message =
-        `Hello Pyro FastFood, I want to book a table.%0A%0A` +
-        `Name: ${name}%0A` +
-        `Phone: ${phone}%0A` +
-        `Email: ${email}%0A` +
-        `Number of Persons: ${persons}%0A` +
-        `Booking Date: ${date}%0A` +
+        `Hello Pyro FastFood, I want to book a table.\n\n` +
+        `Name: ${name}\n` +
+        `Phone: ${phone}\n` +
+        `Email: ${email}\n` +
+        `Number of Persons: ${persons}\n` +
+        `Booking Date: ${date}\n` +
         `Booking Time: ${time}`;
 
       const whatsappNumber = "2348103412803";
+      const whatsappUrl =
+        `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
 
-      window.open(
-        `https://wa.me/${whatsappNumber}?text=${message}`,
-        "_blank"
-      );
+      window.location.href = whatsappUrl;
     });
   </script>
 
